@@ -14,42 +14,34 @@ import com.exam.model.UserRole;
 import com.exam.service.UserService;
 
 @SpringBootApplication
-public class ExamServerApplication implements CommandLineRunner {
+public class ExamServerApplication {
 
-	@Autowired
-	public UserService userService;
-
+	/*
+	 * @Autowired public UserService userService;
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(ExamServerApplication.class, args);
 	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println("starting code");
-
-		User user = new User();
-		user.setEmail("rohit@gmail.com");
-		user.setFirstName("Rohit");
-		user.setLastName("kumar");
-		user.setPassword("abc");
-		user.setPhone("1234561234");
-		user.setProfile("default.png");
-		user.setUsername("rohit123");
-
-		Role role1 = new Role();
-		role1.setRoleId(44L);
-		role1.setRoleName("ADMIN");
-
-		Set<UserRole> userRoleSet = new HashSet();
-		UserRole userRole = new UserRole();
-		userRole.setRole(role1);
-		userRole.setUser(user);
-
-		userRoleSet.add(userRole);
-
-		User user1 = this.userService.createUser(user, userRoleSet);
-		System.out.println(user1.getUsername());
-
-	}
+	/*
+	 * @Override public void run(String... args) throws Exception {
+	 * System.out.println("starting code");
+	 * 
+	 * User user = new User(); user.setEmail("rohit@gmail.com");
+	 * user.setFirstName("Rohit"); user.setLastName("kumar");
+	 * user.setPassword("abc"); user.setPhone("1234561234");
+	 * user.setProfile("default.png"); user.setUsername("rohit123");
+	 * 
+	 * Role role1 = new Role(); role1.setRoleId(44L); role1.setRoleName("ADMIN");
+	 * 
+	 * Set<UserRole> userRoleSet = new HashSet(); UserRole userRole = new
+	 * UserRole(); userRole.setRole(role1); userRole.setUser(user);
+	 * 
+	 * userRoleSet.add(userRole);
+	 * 
+	 * User user1 = this.userService.createUser(user, userRoleSet);
+	 * System.out.println(user1.getUsername());
+	 * 
+	 * }
+	 */
 
 }
