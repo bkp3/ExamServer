@@ -8,7 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +20,18 @@ import com.exam.config.JwtUtils;
 import com.exam.helper.UserNotFoundException;
 import com.exam.model.JwtRequest;
 import com.exam.model.JwtResponse;
+import com.exam.model.User;
 import com.exam.service.impl.UserDetailsServiceImpl;
 
 @RestController
+@CrossOrigin("*")
 public class AuthenticateController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private UserDetailsServiceImpl userDetailsServiceImpl;
+	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
 	private JwtUtils jwtUtils;
@@ -60,10 +62,23 @@ public class AuthenticateController {
 		}
 
 		// user is authenticated
-		UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
+		UserDetails userDetails = this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
 		String generateToken = this.jwtUtils.generateToken(userDetails);
 
 		return ResponseEntity.ok(new JwtResponse(generateToken));
+	}
+
+	/*
+	 * @GetMapping("/current-user") public User getCurrentUser(Principal principal)
+	 * { // return (User)
+	 * this.userDetailsService.loadUserByUsername(principal.getName()); String
+	 * username = this.jwtUtils.extractUsername(principal.getName());
+	 * System.out.println("User:" + username); return (User) (username); }
+	 */
+
+	@GetMapping("/current-user")
+	public User getCurrentUser(Principal principal) {
+		return ((User) this.userDetailsService.loadUserByUsername(principal.getName()));
 	}
 
 }
