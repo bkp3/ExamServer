@@ -34,13 +34,15 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 	@Override
-	public Quiz getQuiz(Long QuizId) {
-		return this.quizRepository.getById(QuizId);
+	public Quiz getQuiz(Long quizId) {
+		return this.quizRepository.findById(quizId).get();
 	}
 
 	@Override
-	public void deleteQuiz(Long QuizId) {
-		this.quizRepository.deleteById(QuizId);
+	public void deleteQuiz(Long quizId) {
+		Quiz quiz = new Quiz();
+		quiz.setqId(quizId);
+		this.quizRepository.delete(quiz);
 	}
 
 }

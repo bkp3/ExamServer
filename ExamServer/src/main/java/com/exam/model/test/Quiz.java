@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,9 +20,11 @@ public class Quiz {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long qid;
+	private Long qId;
 
 	private String title;
+
+	@Column(length = 5000)
 	private String description;
 	private String maxMarks;
 	private String numberOfQuestions;
@@ -39,21 +42,19 @@ public class Quiz {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Quiz(String title, String description, String maxMarks, String numberOfQuestions, boolean active) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.maxMarks = maxMarks;
-		this.numberOfQuestions = numberOfQuestions;
-		this.active = active;
+	/*
+	 * public Quiz(String title, String description, String maxMarks, String
+	 * numberOfQuestions, boolean active) { super(); this.title = title;
+	 * this.description = description; this.maxMarks = maxMarks;
+	 * this.numberOfQuestions = numberOfQuestions; this.active = active; }
+	 */
+
+	public Long getqId() {
+		return qId;
 	}
 
-	public Long getQid() {
-		return qid;
-	}
-
-	public void setQid(Long qid) {
-		this.qid = qid;
+	public void setqId(Long qId) {
+		this.qId = qId;
 	}
 
 	public String getTitle() {
@@ -102,6 +103,14 @@ public class Quiz {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 
 }
